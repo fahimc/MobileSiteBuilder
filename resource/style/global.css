@@ -1,0 +1,39 @@
+#messageHolder
+{
+	width:100%;
+	height:600px;
+}
+.inputHolder
+{
+	width:100%;
+	height:50px;
+	
+}
+.inputHolder #message
+{
+	width:80%;
+	height:50px;
+	float: left;
+}
+.inputHolder #send
+{
+	width:19%;
+	height:50px;
+	float: left;
+}
+.nameHolder{
+	clear: both;
+	
+}
+.nameHolder *
+{
+	float:left;
+}
+.nameHolder #name
+{
+	width:80%;
+}
+.messageRecieved
+{
+	
+}
