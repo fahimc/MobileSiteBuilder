@@ -19,6 +19,17 @@ var Module = {
 				Spider.navigateTo(navTo);
 			};
 		};
+		var link = node.getAttribute('link');
+		if(link)
+		{
+		
+			var a = document.createElement('a');
+			a.setAttribute('href',link);
+			a.setAttribute('target',node.getAttribute('target')?node.getAttribute('target'):'_self');
+			a.appendChild(obj);
+			return a;
+		}
+		return obj;
 	},
 	setChildren : function(node, obj) {
 		for (var i = 0; i < node.childNodes.length; i++) {
@@ -40,7 +51,7 @@ var Module = {
 Module.image = function(node, view) {
 	var img = document.createElement('img');
 	img.src = node.getAttribute('src');
-	Module.setup(node, img);
+	img = Module.setup(node, img);
 	return img;
 };
 /*
@@ -68,7 +79,7 @@ Module.text = function(node, view) {
 	div.appendChild(t);
 	
 	p.innerHTML = child.nodeValue;
-	Module.setup(node, holder);
+	holder =Module.setup(node, holder);
 	return holder;
 };
 /*
@@ -88,7 +99,6 @@ Module.carousel = function(node, view) {
 	holder.style.width = w>Utensil.stageWidth()?Utensil.stageWidth():w;
 	holder.style.height = h;
 	holder.style.overflow = "hidden";
-	Module.setup(node, holder);
 	var children = 0;
 	for (var i = 0; i < node.childNodes.length; i++) {
 		if (node.childNodes[i].nodeName != "#text") {
@@ -107,6 +117,7 @@ Module.carousel = function(node, view) {
 	ul.style.width = (children * w.replace('px', '')) + "px";
 	ul.style.height = h;
 	holder.appendChild(ul);
+	holder =Module.setup(node, holder);
 	return holder;
 };
 /*
@@ -124,9 +135,8 @@ Module.map=function(node, view)
 	iframe.setAttribute('marginheight','0');
 	iframe.setAttribute('marginwidth','0');
 	var url = Model.url.map+node.getAttribute('lat')+","+node.getAttribute('lng')+"&output=embed";
-	console.log(url);
 	iframe.setAttribute('src',url);
-	Module.setup(node, iframe);
+	iframe = Module.setup(node, iframe);
 	return iframe;
 };
 /*
@@ -139,4 +149,24 @@ Module.header = function(node, view) {
 	img.src = node.getAttribute('src');
 	div.appendChild(img);
 	return div;
+};
+/*
+ * youtube module
+ */
+Module.youtube=function(node, view)
+{
+	var w = node.getAttribute('width');
+	var h = node.getAttribute('height');
+	var iframe = document.createElement('iframe');
+	iframe.width = w;
+	iframe.height = h;
+	iframe.setAttribute('frameborder','0');
+	iframe.setAttribute('type','text/html');
+	iframe.setAttribute('scrolling','no');
+	iframe.setAttribute('marginheight','0');
+	iframe.setAttribute('marginwidth','0');
+	var url = Model.url.youtube+node.getAttribute('videoid');
+	iframe.setAttribute('src',url);
+	iframe = Module.setup(node, iframe);
+	return iframe;
 };

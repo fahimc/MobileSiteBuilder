@@ -2,7 +2,8 @@ var Model = {
 	data : null,
 	url : {
 		site : "site.xml",
-		map:'https://maps.google.co.uk/maps?q='
+		map:'https://maps.google.co.uk/maps?q=',
+		youtube:'http://www.youtube.com/embed/'
 	},
 	addHandler : function(root, name) {
 		if (!root.handler)

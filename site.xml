@@ -8,6 +8,8 @@
 		<text classname="contentsPageLink" navigateTo="1"><![CDATA[Carousel Example]]></text>
 		<text classname="contentsPageLink" navigateTo="2"><![CDATA[Scroller Example]]></text>
 		<text classname="contentsPageLink" navigateTo="3"><![CDATA[Map Example]]></text>
+		<text classname="contentsPageLink" navigateTo="4"><![CDATA[Youtube Example]]></text>
+		<text classname="contentsPageLink" navigateTo="5"><![CDATA[Link Example]]></text>
 	</view>
 	<view classname="page1">
 		<header src="resource/image/logo.png" classname="logo"/>
@@ -53,5 +55,16 @@ Quisque lobortis urna nec turpis luctus tristique dictum libero pretium. Suspend
 		<header src="resource/image/logo.png" classname="logo"/>
 		<text classname="pageHeader"><![CDATA[Map Example]]></text>
 		<map width="100%" height="70%" lat='51.50591' lng='-0.021714'></map>
+	</view>
+	<view classname="page2">
+		<header src="resource/image/logo.png" classname="logo"/>
+		<text classname="pageHeader"><![CDATA[Youtube Example]]></text>
+		<youtube width="100%" height="70%" videoid="JW5meKfy3fY"></youtube>
+	</view>
+	<view classname="page2">
+		<header src="resource/image/logo.png" classname="logo"/>
+		<text classname="pageHeader" ><![CDATA[Link Example]]></text>
+		<text classname="contentsPageLink" link="http://google.com" target="_blank"><![CDATA[Google]]></text>
+		<text classname="contentsPageLink" link="http://facebook.com" target="_blank"><![CDATA[Facebook]]></text>
 	</view>
 </site>
