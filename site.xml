@@ -7,7 +7,7 @@
 	</view>
 	<view classname="page2">
 		<html>
-			<![CDATA[<p class='page2Header'>Hello World</p>]]>
+			<![CDATA[<p class='page2Header'>This is the HTML Module</p>]]>
 			</html>
 		</view>
 </site>
