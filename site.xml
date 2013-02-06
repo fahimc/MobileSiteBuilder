@@ -3,11 +3,55 @@
 		<content swipe="true" />
 	</settings>
 	<view classname="page1">
-		<image src="resource/image/header.png" classname="header"/>
+		<header src="resource/image/logo.png" classname="logo"/>
+		<text classname="pageHeader"><![CDATA[Navigation Example]]></text>
+		<text classname="contentsPageLink" navigateTo="1"><![CDATA[Carousel Example]]></text>
+		<text classname="contentsPageLink" navigateTo="2"><![CDATA[Scroller Example]]></text>
+		<text classname="contentsPageLink" navigateTo="3"><![CDATA[Map Example]]></text>
+	</view>
+	<view classname="page1">
+		<header src="resource/image/logo.png" classname="logo"/>
+		<text classname="pageHeader"><![CDATA[Carousel Example]]></text>
+		<carousel width="420px" height="120px" classname="carousel">
+			<image src="resource/image/image1.jpg"  classname="image" />
+			<image src="resource/image/image2.jpg"  classname="image" />
+			<image src="resource/image/image3.jpg"  classname="image" />
+			<image src="resource/image/image4.jpg"  classname="image" />
+			<image src="resource/image/image5.jpg"  classname="image" />
+		</carousel>
 	</view>
 	<view classname="page2">
-		<html>
-			<![CDATA[<p class='page2Header'>This is the HTML Module</p>]]>
-			</html>
-		</view>
+		<header src="resource/image/logo.png" classname="logo"/>
+		<text classname="pageHeader"><![CDATA[Scroller Example]]></text>
+		<html><![CDATA[<p class='lorem'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque laoreet, risus at egestas feugiat, erat mauris sagittis tellus, vel condimentum erat augue non magna. Curabitur felis arcu, dapibus in dignissim eu, blandit at sem. Duis congue arcu id lectus tempor mollis. Praesent auctor blandit felis a sagittis. Proin viverra nisi at lorem dignissim scelerisque. Aliquam accumsan, lorem et imperdiet posuere, arcu libero pellentesque purus, non adipiscing nibh diam nec arcu. Proin aliquet, sem sed fermentum tempor, eros ligula pulvinar odio, sed adipiscing elit nulla eget enim. Sed at arcu eu nibh hendrerit ultrices. Sed ut mauris massa.<br />
+<br />
+In hac habitasse platea dictumst. Aliquam vitae ligula justo. Ut vel enim risus. Curabitur gravida viverra libero, nec egestas felis mattis ut. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi porttitor nulla et tortor pretium venenatis. Nulla malesuada mattis consectetur.<br />
+<br />
+Nam fermentum nisi magna. Curabitur varius venenatis ipsum, a rutrum arcu interdum venenatis. Curabitur nisi risus, molestie non mollis eu, mollis non dolor. Sed lacinia congue urna, quis porta lorem molestie vitae. Integer accumsan sagittis lacinia. Mauris elit purus, placerat ut venenatis vitae, congue et velit. Phasellus aliquet interdum nibh quis malesuada. Nulla et felis eu enim feugiat feugiat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean a augue urna. Suspendisse volutpat, magna vitae faucibus ultrices, tortor lectus consequat nibh, ultrices rhoncus dolor lorem ac leo. Curabitur eu nulla sed eros dignissim placerat quis ut lorem. Duis ultrices odio hendrerit leo tempus vestibulum. Pellentesque ligula libero, laoreet sed vehicula eu, tincidunt fermentum dui.<br />
+<br />
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque laoreet, risus at egestas feugiat, erat mauris sagittis tellus, vel condimentum erat augue non magna. Curabitur felis arcu, dapibus in dignissim eu, blandit at sem. Duis congue arcu id lectus tempor mollis. Praesent auctor blandit felis a sagittis. Proin viverra nisi at lorem dignissim scelerisque. Aliquam accumsan, lorem et imperdiet posuere, arcu libero pellentesque purus, non adipiscing nibh diam nec arcu. Proin aliquet, sem sed fermentum tempor, eros ligula pulvinar odio, sed adipiscing elit nulla eget enim. Sed at arcu eu nibh hendrerit ultrices. Sed ut mauris massa.<br />
+<br />
+In hac habitasse platea dictumst. Aliquam vitae ligula justo. Ut vel enim risus. Curabitur gravida viverra libero, nec egestas felis mattis ut. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi porttitor nulla et tortor pretium venenatis. Nulla malesuada mattis consectetur.<br />
+<br />
+Nam fermentum nisi magna. Curabitur varius venenatis ipsum, a rutrum arcu interdum venenatis. Curabitur nisi risus, molestie non mollis eu, mollis non dolor. Sed lacinia congue urna, quis porta lorem molestie vitae. Integer accumsan sagittis lacinia. Mauris elit purus, placerat ut venenatis vitae, congue et velit. Phasellus aliquet interdum nibh quis malesuada. Nulla et felis eu enim feugiat feugiat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean a augue urna. Suspendisse volutpat, magna vitae faucibus ultrices, tortor lectus consequat nibh, ultrices rhoncus dolor lorem ac leo. Curabitur eu nulla sed eros dignissim placerat quis ut lorem. Duis ultrices odio hendrerit leo tempus vestibulum. Pellentesque ligula libero, laoreet sed vehicula eu, tincidunt fermentum dui.<br />
+<br />
+Nullam pellentesque massa eu quam interdum interdum. Donec lacinia enim et massa venenatis placerat. Morbi dictum molestie mauris ac adipiscing. Suspendisse porta laoreet dolor nec ultricies. Donec nec nulla ut risus ornare aliquet interdum ut mi. Integer eget sem ipsum. Duis sodales, purus nec aliquet eleifend, risus turpis tincidunt magna, at laoreet felis sapien eu nisl. Duis eget augue magna, convallis lacinia massa. Aenean ut nulla vel nunc semper viverra. Proin erat velit, ultricies id sagittis non, elementum non lacus. Donec varius ultricies nulla varius molestie. Vivamus et augue odio. Suspendisse consequat dui mauris.<br />
+<br />
+Quisque lobortis urna nec turpis luctus tristique dictum libero pretium. Suspendisse porta lorem vitae ipsum condimentum sodales. Praesent commodo bibendum ligula, eu bibendum libero sagittis et. Mauris sit amet est lacus. Duis tempus lectus in dui blandit malesuada. Duis gravida sagittis vehicula. Nunc vulputate odio vel sapien ornare feugiat. Donec velit mauris, ultrices in sollicitudin id, pretium sit amet justo. Vestibulum malesuada feugiat diam, sed placerat magna hendrerit sed. Donec at eros velit, et accumsan ligula. Aliquam vitae sagittis turpis. Mauris nibh elit, tristique sed molestie ac, tincidunt at leo. Praesent volutpat pretium urna, vel tristique lectus venenatis vel. Nulla facilisi.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque laoreet, risus at egestas feugiat, erat mauris sagittis tellus, vel condimentum erat augue non magna. Curabitur felis arcu, dapibus in dignissim eu, blandit at sem. Duis congue arcu id lectus tempor mollis. Praesent auctor blandit felis a sagittis. Proin viverra nisi at lorem dignissim scelerisque. Aliquam accumsan, lorem et imperdiet posuere, arcu libero pellentesque purus, non adipiscing nibh diam nec arcu. Proin aliquet, sem sed fermentum tempor, eros ligula pulvinar odio, sed adipiscing elit nulla eget enim. Sed at arcu eu nibh hendrerit ultrices. Sed ut mauris massa.<br />
+<br />
+In hac habitasse platea dictumst. Aliquam vitae ligula justo. Ut vel enim risus. Curabitur gravida viverra libero, nec egestas felis mattis ut. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi porttitor nulla et tortor pretium venenatis. Nulla malesuada mattis consectetur.<br />
+<br />
+Nam fermentum nisi magna. Curabitur varius venenatis ipsum, a rutrum arcu interdum venenatis. Curabitur nisi risus, molestie non mollis eu, mollis non dolor. Sed lacinia congue urna, quis porta lorem molestie vitae. Integer accumsan sagittis lacinia. Mauris elit purus, placerat ut venenatis vitae, congue et velit. Phasellus aliquet interdum nibh quis malesuada. Nulla et felis eu enim feugiat feugiat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean a augue urna. Suspendisse volutpat, magna vitae faucibus ultrices, tortor lectus consequat nibh, ultrices rhoncus dolor lorem ac leo. Curabitur eu nulla sed eros dignissim placerat quis ut lorem. Duis ultrices odio hendrerit leo tempus vestibulum. Pellentesque ligula libero, laoreet sed vehicula eu, tincidunt fermentum dui.<br />
+<br />
+Nullam pellentesque massa eu quam interdum interdum. Donec lacinia enim et massa venenatis placerat. Morbi dictum molestie mauris ac adipiscing. Suspendisse porta laoreet dolor nec ultricies. Donec nec nulla ut risus ornare aliquet interdum ut mi. Integer eget sem ipsum. Duis sodales, purus nec aliquet eleifend, risus turpis tincidunt magna, at laoreet felis sapien eu nisl. Duis eget augue magna, convallis lacinia massa. Aenean ut nulla vel nunc semper viverra. Proin erat velit, ultricies id sagittis non, elementum non lacus. Donec varius ultricies nulla varius molestie. Vivamus et augue odio. Suspendisse consequat dui mauris.<br />
+<br />
+Quisque lobortis urna nec turpis luctus tristique dictum libero pretium. Suspendisse porta lorem vitae ipsum condimentum sodales. Praesent commodo bibendum ligula, eu bibendum libero sagittis et. Mauris sit amet est lacus. Duis tempus lectus in dui blandit malesuada. Duis gravida sagittis vehicula. Nunc vulputate odio vel sapien ornare feugiat. Donec velit mauris, ultrices in sollicitudin id, pretium sit amet justo. Vestibulum malesuada feugiat diam, sed placerat magna hendrerit sed. Donec at eros velit, et accumsan ligula. Aliquam vitae sagittis turpis. Mauris nibh elit, tristique sed molestie ac, tincidunt at leo. Praesent volutpat pretium urna, vel tristique lectus venenatis vel. Nulla facilisi<br />
+Quisque lobortis urna nec turpis luctus tristique dictum libero pretium. Suspendisse porta lorem vitae ipsum condimentum sodales. Praesent commodo bibendum ligula, eu bibendum libero sagittis et. Mauris sit amet est lacus. Duis tempus lectus in dui blandit malesuada. Duis gravida sagittis vehicula. Nunc vulputate odio vel sapien ornare feugiat. Donec velit mauris, ultrices in sollicitudin id, pretium sit amet justo. Vestibulum malesuada feugiat diam, sed placerat magna hendrerit sed. Donec at eros velit, et accumsan ligula. Aliquam vitae sagittis turpis. Mauris nibh elit, tristique sed molestie ac, tincidunt at leo. Praesent volutpat pretium urna, vel tristique lectus venenatis vel. Nulla facilisi..</p>]]></html>
+
+	</view>
+	<view classname="page2">
+		<header src="resource/image/logo.png" classname="logo"/>
+		<text classname="pageHeader"><![CDATA[Map Example]]></text>
+		<map width="100%" height="70%" lat='51.50591' lng='-0.021714'></map>
+	</view>
 </site>

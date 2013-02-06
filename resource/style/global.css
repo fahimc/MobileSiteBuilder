@@ -1,6 +1,6 @@
 .page1
 {
-	background-color: #333;
+	background-color: #00704F;
 	height:100%;
 }
 .page2
@@ -8,7 +8,80 @@
 	background-color: #666;
 	height:100%;
 }
+.logo
+{
+	height:50px;
+	width:100%;
+	background-color: #00704f;
+}
+.pageHeader
+{
+	color:#333;
+	width:100%;
+	height:35px;
+	background-color: #e4e4e4;
+	border-bottom: 2px solid #00704F;
+}
+.pageHeader p
+{
+	padding-left: 20px;
+	padding-top: 10px;
+	font-weight: bold;
+}
+.contentsPageLink
+{
+	color:#e4e4e4;
+	width:100%;
+	height:35px;
+	background-color: #333;
+	border-bottom: 2px solid #00704F;
+	cursor:pointer;
+}
+.contentsPageLink:hover
+{
+	background-color: #666;
+}
+.contentsPageLink p
+{
+	padding-left: 20px;
+	padding-top: 10px;
+	font-weight: bold;
+}
 .page2Header
 {
-	color:#fff;
+	background-color:#fff;
+	color:#000;
+	margin-bottom: 20px;
+	margin-left: 20px;
+	height: 80px;
+	width:300px;
+}
+.page2Header .pageScroller
+{
+	background-color:#333 ;
+}
+.image
+{
+	width:200px;
+	height:120px;
+	padding-right:20px;
+}
+#test
+{
+	height:100%;
+	width:100%;
+}
+.carousel
+{
+	margin-left:auto;
+	margin-right:auto;
+	background-color: #666;
+	margin-top: 20px;
+}
+.lorem
+{
+	color: #e4e4e4;
+margin-left: 20px;
+margin-right: 20px;
+padding-bottom: 100px;
 }

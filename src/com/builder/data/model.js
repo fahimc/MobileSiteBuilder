@@ -1,7 +1,8 @@
 var Model = {
 	data : null,
 	url : {
-		site : "site.xml"
+		site : "site.xml",
+		map:'https://maps.google.co.uk/maps?q='
 	},
 	addHandler : function(root, name) {
 		if (!root.handler)
@@ -14,17 +15,5 @@ var Model = {
 		if (!root.handler)
 			return;
 		delete root.handler[name];
-	},
-	StringToXML : function(oString) {
-		//code for IE
-		if (window.ActiveXObject) {
-			var oXML = new ActiveXObject("Microsoft.XMLDOM");
-			oXML.loadXML(oString);
-			return oXML;
-		}
-		// code for Chrome, Safari, Firefox, Opera, etc.
-		else {
-			return (new DOMParser()).parseFromString(oString, "text/xml");
-		}
 	}
 }
