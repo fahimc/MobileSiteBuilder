@@ -1,39 +1,14 @@
-#messageHolder
+.page1
 {
-	width:100%;
-	height:600px;
+	background-color: #333;
+	height:100%;
 }
-.inputHolder
+.page2
 {
-	width:100%;
-	height:50px;
-	
+	background-color: #666;
+	height:100%;
 }
-.inputHolder #message
+.page2Header
 {
-	width:80%;
-	height:50px;
-	float: left;
-}
-.inputHolder #send
-{
-	width:19%;
-	height:50px;
-	float: left;
-}
-.nameHolder{
-	clear: both;
-	
-}
-.nameHolder *
-{
-	float:left;
-}
-.nameHolder #name
-{
-	width:80%;
-}
-.messageRecieved
-{
-	
+	color:#fff;
 }

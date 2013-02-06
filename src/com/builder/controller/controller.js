@@ -1,8 +1,9 @@
 var Controller=
 {
+	timestamp:null,
 	init:function()
 	{
-		
+		this.timestamp=new Date().getTime();
 		
 		this.loadData();
 		
@@ -11,7 +12,7 @@ var Controller=
 	{
 		
 		Model.addHandler(this,"dataLoaded");
-		Utensil.URLLoader.load(Model.url.site,this.dataLoaded);
+		Utensil.URLLoader.load(Model.url.site+"?ts="+this.timestamp,this.dataLoaded);
 	},
 	dataLoaded:function(t,x)
 	{

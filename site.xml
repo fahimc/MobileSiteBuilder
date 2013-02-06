@@ -1,5 +1,13 @@
 <site>
-<view>
-<image src="#" />
-</view>
+	<settings>
+		<content swipe="true" />
+	</settings>
+	<view classname="page1">
+		<image src="resource/image/header.png" classname="header"/>
+	</view>
+	<view classname="page2">
+		<html>
+			<![CDATA[<p class='page2Header'>Hello World</p>]]>
+			</html>
+		</view>
 </site>
