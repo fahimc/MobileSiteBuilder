@@ -8,7 +8,31 @@
 	background-color: #666;
 	height:100%;
 }
+.page1Header
+{
+	color:#f00;
+	margin-bottom: 20px;
+	margin-left: 20px;
+}
 .page2Header
 {
-	color:#fff;
+	color:#000;
+	margin-bottom: 20px;
+	margin-left: 20px;
+	height: 30px;
+	width:100%;
+}
+.image
+{
+	width:200px;
+	padding-right:20px;
+}
+#test
+{
+	height:100%;
+	width:100%;
+}
+.carousel
+{
+	margin-left:40%;
 }

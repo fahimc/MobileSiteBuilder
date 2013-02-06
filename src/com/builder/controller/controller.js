@@ -17,15 +17,16 @@ var Controller=
 	dataLoaded:function(t,x)
 	{
 		Model.data = x;
+		Style.addDefault();
 		View.init();
 		Spider.init();
 		Model.addHandler(this,"ready");
-		Event.addListener(Spider, Spider.event.COMPLETE, this.handler.ready);
+		Event.addListener(Spider, Spider.event.COMPLETE, Controller.ready);
 	},
 	ready:function()
 	{
 		
-		Event.removeListener(Spider, Spider.event.COMPLETE, this.handler.ready);
+		Event.removeListener(Spider, Spider.event.COMPLETE, Controller.ready);
 		Model.removeHandler(this,"ready");
 	}
 	

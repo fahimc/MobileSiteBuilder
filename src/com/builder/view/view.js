@@ -31,8 +31,12 @@ var View=
 	},
 	createView:function(node,content)
 	{
-		
 		var view = document.createElement('div');
+		var holder = document.createElement('div');
+		holder.id="test";
+		Style.pageHolder(holder);
+		var page= document.createElement('div');
+		page.setAttribute('scrollable','true')
 		view.className = node.getAttribute('classname');
 		for (var i = 0; i < node.childNodes.length; i++) {   
 			if(node.childNodes[i].nodeName!="#text")
@@ -40,11 +44,13 @@ var View=
 				var name = node.childNodes[i].nodeName;
 					if(Module[name])
 					{
-						var mod = Module[name](node.childNodes[i],view);
-						if(mod)view.appendChild(mod);
+						var mod = Module[name](node.childNodes[i],page);
+						if(mod)page.appendChild(mod);
 					}
 			}
 		}
+		holder.appendChild(page);
+		view.appendChild(holder);
 		content.appendChild(view);
 	}
 }
