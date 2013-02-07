@@ -1,11 +1,12 @@
 <site>
 	<settings>
 		<content swipe="true" />
+		<tracking type="google" account="UA-38334114-1"   />
 	</settings>
 	<view classname="page1">
 		<header src="resource/image/logo.png" classname="logo"/>
 		<text classname="pageHeader"><![CDATA[Navigation Example]]></text>
-		<text classname="contentsPageLink" navigateTo="1"><![CDATA[Carousel Example]]></text>
+		<text classname="contentsPageLink" navigateTo="1" id="carouselButton"><![CDATA[Carousel Example]]></text>
 		<text classname="contentsPageLink" navigateTo="2"><![CDATA[Scroller Example]]></text>
 		<text classname="contentsPageLink" navigateTo="3"><![CDATA[Map Example]]></text>
 		<text classname="contentsPageLink" navigateTo="4"><![CDATA[Youtube Example]]></text>

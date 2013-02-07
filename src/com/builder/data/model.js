@@ -1,4 +1,8 @@
 var Model = {
+	clickIndex:0,
+	id:{
+		button:"button"
+	},
 	data : null,
 	url : {
 		site : "site.xml",

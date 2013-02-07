@@ -54,5 +54,9 @@ var View=
 		holder.appendChild(page);
 		view.appendChild(holder);
 		content.appendChild(view);
+	},
+	navigateTo:function(index)
+	{
+		Spider.navigateTo(index);
 	}
 }
