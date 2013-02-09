@@ -86,7 +86,6 @@ var Controller = {
 		Spider.controller.slideModule(ul, index);
 	},
 	autoGallery : function(ul) {
-		console.log("autoGallery");
 		var index = ul.getAttribute(Spider.data.att.swipeIndex);
 		if (index==null) {
 			 index = 0;
@@ -95,7 +94,6 @@ var Controller = {
 			ul.parentNode.style.position = "relative";
 		}
 		index = parseInt(index);
-		console.log(index);
 		var back=false;
 		if ((parseInt(index + 1) * ul.parentNode.clientWidth) > ul.clientWidth - ul.parentNode.clientWidth) {
 			ul.setAttribute("backward", "true");

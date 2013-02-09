@@ -402,10 +402,10 @@ Module.input = function(node, view) {
 	input.setAttribute("formindex", Model.formIndex);
 	switch(node.getAttribute('type')) {
 		case "password":
-			input.type = "password";
+			input.setAttribute("type","password");
 			break;
 		default:
-			input.type = "text";
+			input.setAttribute("type","text");
 			break;
 	}
 
