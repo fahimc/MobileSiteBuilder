@@ -15,6 +15,9 @@ var View=
 			   	 	case "content":
 			   	 	if(child.getAttribute('swipe') && child.getAttribute('swipe')=="true")content.setAttribute('swipe','true');
 			   	 	break;
+			   	 	case "title":
+			   	 	 document.title = child.getAttribute('text');
+			   	 	break;
 			   	 }
 			   }
 		}

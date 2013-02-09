@@ -1,32 +1,21 @@
 <site>
 	<settings>
-		<title text="TeaBreak"/>
 		<content swipe="true" />
 		<tracking type="google" account="UA-38334114-1"   />
 	</settings>
 	<view classname="page1">
-		<header src="resource/image/logo.png" />
-		<navbar>
-			<navbutton text="Home" navigateTo="0" src="" target="" />
-			<navbutton text="Carousel" navigateTo="1" src="" target="" />
-			<navbutton text="Scroll" navigateTo="2" src="" target="" />
-			<navbutton text="Map" navigateTo="3" src="" target="" />
-			<navbutton text="Video" navigateTo="4" src="" target="" />
-			<navbutton text="Form" navigateTo="5" src="" target="" />
-		</navbar>
-		<carousel marginTop="10px" width="320px" height="300px"  auto="true">
-			<image src="resource/image/1.jpg"   />
-			<image src="resource/image/2.jpg"   />
-			<image src="resource/image/3.jpg" />
-			<image src="resource/image/4.jpg"   />
-		</carousel>
-		<button text="Next" navigateTo="1"/>
-		
+		<header src="resource/image/logo.png" classname="logo"/>
+		<text classname="pageHeader"><![CDATA[Navigation Example]]></text>
+		<text classname="contentsPageLink" navigateTo="1" id="carouselButton"><![CDATA[Carousel Example]]></text>
+		<text classname="contentsPageLink" navigateTo="2"><![CDATA[Scroller Example]]></text>
+		<text classname="contentsPageLink" navigateTo="3"><![CDATA[Map Example]]></text>
+		<text classname="contentsPageLink" navigateTo="4"><![CDATA[Youtube Example]]></text>
+		<text classname="contentsPageLink" navigateTo="5"><![CDATA[Link Example]]></text>
 	</view>
 	<view classname="page1">
-		<header src="resource/image/logo.png" />
-		<text classname="pageHeader"><![CDATA[Swipe Carousel Example]]></text>
-		<carousel width="300px" height="150px" classname="carousel" disablebuttons="true">
+		<header src="resource/image/logo.png" classname="logo"/>
+		<text classname="pageHeader"><![CDATA[Carousel Example]]></text>
+		<carousel width="420px" height="120px" classname="carousel">
 			<image src="resource/image/image1.jpg"  classname="image" />
 			<image src="resource/image/image2.jpg"  classname="image" />
 			<image src="resource/image/image3.jpg"  classname="image" />
@@ -35,7 +24,7 @@
 		</carousel>
 	</view>
 	<view classname="page2">
-		<header text="TeaBreak"/>
+		<header src="resource/image/logo.png" classname="logo"/>
 		<text classname="pageHeader"><![CDATA[Scroller Example]]></text>
 		<html><![CDATA[<p class='lorem'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque laoreet, risus at egestas feugiat, erat mauris sagittis tellus, vel condimentum erat augue non magna. Curabitur felis arcu, dapibus in dignissim eu, blandit at sem. Duis congue arcu id lectus tempor mollis. Praesent auctor blandit felis a sagittis. Proin viverra nisi at lorem dignissim scelerisque. Aliquam accumsan, lorem et imperdiet posuere, arcu libero pellentesque purus, non adipiscing nibh diam nec arcu. Proin aliquet, sem sed fermentum tempor, eros ligula pulvinar odio, sed adipiscing elit nulla eget enim. Sed at arcu eu nibh hendrerit ultrices. Sed ut mauris massa.<br />
 <br />
@@ -69,22 +58,15 @@ Quisque lobortis urna nec turpis luctus tristique dictum libero pretium. Suspend
 		<map width="100%" height="70%" lat='51.50591' lng='-0.021714'></map>
 	</view>
 	<view classname="page2">
-		<header text="TeaBreak"/>
+		<header src="resource/image/logo.png" classname="logo"/>
 		<text classname="pageHeader"><![CDATA[Youtube Example]]></text>
 		<youtube width="100%" height="70%" videoid="JW5meKfy3fY"></youtube>
 	</view>
 	<view classname="page2">
-		<header text="TeaBreak"/>
+		<header src="resource/image/logo.png" classname="logo"/>
 		<text classname="pageHeader" ><![CDATA[Link Example]]></text>
 		<text classname="contentsPageLink" link="http://google.com" target="_blank"><![CDATA[Google]]></text>
 		<text classname="contentsPageLink" link="http://facebook.com" target="_blank"><![CDATA[Facebook]]></text>
-		<text classname="pageHeader" ><![CDATA[Form Example]]></text>
-		<form>
-			<input type="to" text="email address" />
-			<hidden type="from" value="chowdhury@gmx.co.uk"/>
-			<input type="subject" text="subject" />
-			<input type="body" text="body" />
-		<submit text="Submit" />
-		</form>
+		
 	</view>
 </site>

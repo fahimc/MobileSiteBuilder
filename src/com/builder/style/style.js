@@ -1,7 +1,22 @@
 var Style=
 {
 	style:null,
-	defaultStyle:".pageScroller{background-color: #e4e4e4;}.floatLeft{float:left;}",
+	className:
+	{
+		header:"blackheader",
+		nav:"blacknav",
+		blacktheme:"blacktheme",
+		navButton:"navbutton",
+		button:"blackbutton",
+		carouselLeftButton:"carouselleftbutton",
+		carouselRightButton:"carouselrightbutton",
+		formInputTitle:"forminputtitle",
+		formInputHolder:"forminputholder",
+		formTextArea:"formtextarea",
+		formInput:"forminput",
+		clearBoth:"clearboth"
+	},
+	defaultStyle:".pageScroller{background-color: #333;}.floatLeft{float:left;}.social-holder{overflow:hidden;height:25px;}",
 	pageHolder:function(holder)
 	{
 		holder.style.height=Utensil.stageHeight();

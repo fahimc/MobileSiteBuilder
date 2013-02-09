@@ -5,13 +5,15 @@ var Deeplink=
 		if(location.hash)
 		{
 			var  hash = location.hash.replace("#",'');
-			if(Number(hash))
+			if(!isNaN(Number(hash)))
 			{
+				
 				View.navigateTo(hash);
 			}else{
 				
 			}
 		}
+		
 	},
 	update:function(index)
 	{
@@ -21,5 +23,10 @@ var Deeplink=
 			var name = views[index].getAttribute('pagename')?views[index].getAttribute('pagename'):index;
 			location.hash =name;			
 		}
+	},
+	backCheck:function()
+	{
+		
+		Deeplink.init();
 	}
 }
