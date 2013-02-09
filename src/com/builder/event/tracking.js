@@ -14,24 +14,21 @@ var Tracking = {
 	}
 };
 Tracking.google = {
+	account : null,
+	pageTracker : null,
 	init : function(node) {
-		var account = node.getAttribute('account');
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', account]);
-		_gaq.push(['_trackPageview']);
-
-		var ga = document.createElement('script');
-		ga.type = 'text/javascript';
-		ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		var s = document.getElementsByTagName('script')[0];
-		s.parentNode.insertBefore(ga, s);
-
+		Controller.onScriptLoad(('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js', Tracking.google.onScriptLoad, node);
+	},
+	onScriptLoad : function(node) {
+		Tracking.google.account = node.getAttribute('account');
+		Tracking.google.pageTracker = _gat._createTracker(Tracking.google.account);
+		Tracking.google.pageTracker._initData();
+		Tracking.google.pageTracker._trackPageview();
 	},
 	click : function(id) {
-		_gaq.push(['_trackEvent', id, 'clicked']);
+		Tracking.google.pageTracker._trackEvent('_trackEvent', id, 'clicked');
 	},
 	pageChange : function(id) {
-		_gaq.push(['_trackEvent', id, 'pageChange']);
+		Tracking.google.pageTracker._trackEvent('_trackEvent', id, 'pageChange');
 	}
-}; 
+};

@@ -43,10 +43,13 @@ var Controller = {
 	},
 	onPageChange : function(index) {
 		Deeplink.update(index);
+		var view = Model.data.getElementsByTagName("view")[parseInt(index)];
+		var id = view.getAttribute('pagename') ? view.getAttribute('pagename') : index;
+		Tracking.pageChange(id);
 	},
 	onGalleryClick : function(obj, event) {
 		var element = event.srcElement || event.target;
-		
+
 		var parent;
 		if (element.tagName != "P") {
 			parent = element.parentNode;
@@ -87,34 +90,56 @@ var Controller = {
 	},
 	autoGallery : function(ul) {
 		var index = ul.getAttribute(Spider.data.att.swipeIndex);
-		if (index==null) {
-			 index = 0;
+		if (index == null) {
+			index = 0;
 			ul.setAttribute(Spider.data.att.swipeIndex, index);
 			ul.style.position = "absolute";
 			ul.parentNode.style.position = "relative";
 		}
 		index = parseInt(index);
-		var back=false;
+		var back = false;
 		if ((parseInt(index + 1) * ul.parentNode.clientWidth) > ul.clientWidth - ul.parentNode.clientWidth) {
 			ul.setAttribute("backward", "true");
-			back=true;
+			back = true;
 		}
-		
-		 if (parseInt(index - 1) < 0){
-			back=false;
+
+		if (parseInt(index - 1) < 0) {
+			back = false;
 			ul.setAttribute("backward", "false");
 		}
-		if(ul.getAttribute("backward") && ul.getAttribute("backward")=="true")back=true;
-		
-		if(back)
-		{
+		if (ul.getAttribute("backward") && ul.getAttribute("backward") == "true")
+			back = true;
+
+		if (back) {
 			index--;
-		}else{
-			
+		} else {
+
 			index++;
-		}	
-		
-		Spider.controller.slideModule(ul, index,0.5,Controller.autoGallery,3);
+		}
+
+		Spider.controller.slideModule(ul, index, 0.5, Controller.autoGallery, 3);
 		delete ul;
+	},
+	onScriptLoad : function(src,callback,arg) {
+		var complete = false;
+		var script = document.createElement('script');
+		script.type = 'text/javascript';
+		script.onload = script.onreadystatechange = function() {
+			if (!complete && (!this.readyState || this.readyState === 'complete' || (this.readyState === 'loaded' && this.nextSibling != null))) {
+				//console.log('loaded via all');
+				complete = true;
+				if (callback)
+					callback(arg);
+				//remove listeners
+				script.onload = script.onreadystatechange = null;
+			} else if (this.readyState === 'loaded' && this.nextSibling == null) {
+				//console.log('error via ie');
+			}
+			script.onerror = function() {
+				//console.log('error via everything else');
+			}
+		}
+		script.src= src;
+		document.getElementsByTagName('head')[0].appendChild(script);
 	}
 }
