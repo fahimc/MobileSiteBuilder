@@ -1,10 +1,13 @@
 var Module = {
+	type:
+	{
+		image:"image"
+	},
 	appid : "tb0802132202",
 	setup : function(node, obj) {
 		if (node) {
 
-			if (node.getAttribute('classname'))
-				obj.className = node.getAttribute('classname');
+				obj.className = node.getAttribute('classname')?node.getAttribute('classname'):Style.className.module+node.nodeName;
 			if (node.getAttribute('id'))
 				obj.id = node.getAttribute('id');
 			for (var i = 0; i < node.attributes.length; i++) {
@@ -22,9 +25,7 @@ var Module = {
 		if (navTo) {
 			this.setButton(obj);
 			Spider.event.addListener(obj.id, 'click', function() {
-				Tracking.pageChange(obj.id);
-				Deeplink.update(navTo);
-				Spider.navigateTo(navTo);
+				Module.onChangePage(obj.id,navTo);
 			});
 		};
 		var link = node.getAttribute('link');
@@ -40,6 +41,12 @@ var Module = {
 		delete link;
 		return obj;
 	},
+	onChangePage:function(id,navTo)
+	{
+		Tracking.pageChange(id);
+				Deeplink.update(navTo);
+				Spider.navigateTo(navTo);
+	},
 	setButton : function(obj) {
 		if (!obj.id) {
 			obj.id = Model.id.button + Model.clickIndex;
@@ -52,10 +59,10 @@ var Module = {
 			if (node.childNodes[i].nodeName != "#text") {
 				var name = node.childNodes[i].nodeName;
 				if (Module[name]) {
-					var mod = Module[name](node.childNodes[i], obj);
+					var mod = Module[name](node.childNodes[i], obj,node);
 					if (mod)
 						obj.appendChild(mod);
-						delete mod;
+					delete mod;
 				}
 			}
 		}
@@ -90,12 +97,19 @@ Module.text = function(node, view) {
 	var div = document.createElement('div');
 	var t = document.createElement('div');
 	var p = document.createElement('p');
-	div.setAttribute('scrollable', 'true');
+	
+	if(node.getAttribute('height'))
+	{
+		div.setAttribute('scrollable', 'true');
 	div.appendChild(p);
 	holder.appendChild(div);
 	div.appendChild(t);
-
+	}else{
+		holder.appendChild(p);
+	}
 	p.innerHTML = child.nodeValue;
+	var h = (p.clientHeight);
+	var w = (p.clientWidth);
 	holder = Module.setup(node, holder);
 	return holder;
 };
@@ -110,7 +124,7 @@ Module.carousel = function(node, view) {
 	holder.style.position = "relative";
 	var ul = document.createElement('ul');
 	ul.setAttribute('swipe', 'true');
-	
+
 	var li;
 	if (!w)
 		w = 0;
@@ -163,8 +177,8 @@ Module.carousel = function(node, view) {
 		Spider.event.addListener(right.id, 'click', Controller.onGalleryClick);
 	} else if (node.getAttribute('auto')) {
 		//setInterval(function() {
-			ul.setAttribute('autoswipe', 'true');
-			Controller.autoGallery(ul);
+		ul.setAttribute('autoswipe', 'true');
+		Controller.autoGallery(ul);
 		//}, 3000);
 	}
 	return holder;
@@ -184,7 +198,7 @@ Module.map = function(node, view) {
 	iframe.setAttribute('marginwidth', '0');
 	var url = Model.url.map + node.getAttribute('lat') + "," + node.getAttribute('lng') + "&output=embed";
 	iframe.setAttribute('src', url);
-	iframe = Module.setup(node, iframe);
+	Module.setup(node, iframe);
 	return iframe;
 };
 /*
@@ -192,8 +206,8 @@ Module.map = function(node, view) {
  */
 Module.header = function(node, view) {
 	var div = document.createElement('div');
-	div.className = Style.className.blacktheme + " " + Style.className.header;
 	Module.setup(node, div);
+	div.className = Style.className.blacktheme + " " + Style.className.header;
 	var obj;
 	if (node.getAttribute('src')) {
 		obj = document.createElement('img');
@@ -202,7 +216,8 @@ Module.header = function(node, view) {
 		obj = document.createElement('p');
 		obj.innerHTML = node.getAttribute('text');
 	}
-
+	var nav =Module.pageNav(node,view);
+	if(nav)div.appendChild(nav);
 	div.appendChild(obj);
 	return div;
 };
@@ -290,12 +305,12 @@ Module.navbar = function(node, view) {
  */
 Module.button = function(node, view) {
 	var div = document.createElement('div');
-	div.className = Style.className.blacktheme + " " + Style.className.button;
 	Module.setup(node, div);
 	var obj = document.createElement('p');
 	obj.innerHTML = node.getAttribute('text');
 	div.appendChild(obj);
 	Module.setup(node, div);
+	div.className = Style.className.blacktheme + " " + Style.className.button;
 	return div;
 };
 /*
@@ -305,9 +320,12 @@ Module.form = function(node, view) {
 	var div = document.createElement('div');
 	Model.formIndex++;
 	div.setAttribute("formindex", Model.formIndex);
+	div.setAttribute("formtype", node.getAttribute('type'));
+	if (node.getAttribute('src'))
+		div.setAttribute("formsrc", node.getAttribute('src'));
 	Module.setChildren(node, div);
 	return div;
-}
+};
 /*
  * submit module
  */
@@ -349,32 +367,37 @@ Module.submit = function(node, view) {
 		}
 
 		if (t && f && s && b) {
-			var url = Model.url.email.replace('[t]', t);
+			var url;
+			console.log(parent);
+			url = (parent.getAttribute("formsrc") != null ? parent.getAttribute("formsrc") : Model.url.email);
+			var url = url.replace('[t]', t);
 			url = url.replace('[f]', f);
 			url = url.replace('[s]', s);
 			url = url.replace('[b]', b);
 			url = url.replace('[i]', Module.appid);
 			var scriptTag;
-			if(!document.getElementById('mailscript'))
-			{
-				scriptTag =  document.createElement('SCRIPT');
+			if (!document.getElementById('mailscript')) {
+				scriptTag = document.createElement('SCRIPT');
 				scriptTag.type = "text/javascript";
 				scriptTag.id = "mailscript";
-			}else{
-				scriptTag =document.getElementById('mailscript');
+			} else {
+				scriptTag = document.getElementById('mailscript');
 			}
-			
-			scriptTag.src = url + "&count" + Math.random() + "=" + Math.random() + "&callback=emailCallback";
-			document.getElementsByTagName('HEAD')[0].appendChild(scriptTag);
-			
+			try {
+				scriptTag.src = url + "&count" + Math.random() + "=" + Math.random() + "&callback=emailCallback";
+				document.getElementsByTagName('HEAD')[0].appendChild(scriptTag);
+			} catch(e) {
+				console.log(e);
+			}
+
 			for (var a = 0; a < children.length; a++) {
-				if(children[a].value)children[a].value="";
+				//if(children[a].value)children[a].value="";
 			}
 			delete children;
 		}
 	});
 	return div;
-}
+};
 window.emailCallback = function(data) {
 	Spider.toast(data);
 };
@@ -402,17 +425,17 @@ Module.input = function(node, view) {
 	input.setAttribute("formindex", Model.formIndex);
 	switch(node.getAttribute('type')) {
 		case "password":
-			input.setAttribute("type","password");
+			input.setAttribute("type", "password");
 			break;
 		default:
-			input.setAttribute("type","text");
+			input.setAttribute("type", "text");
 			break;
 	}
 
 	li.appendChild(input);
 	ul.appendChild(li);
 	return ul;
-}
+};
 Module.hidden = function(node, view) {
 	var input = document.createElement('input');
 	input.type = "hidden";
@@ -421,12 +444,141 @@ Module.hidden = function(node, view) {
 		input.setAttribute("inputtype", node.getAttribute('type'));
 	input.setAttribute("formindex", Model.formIndex);
 	return input;
-}
-Module.footer=function(node, view)
-{
-	var div = Module.header(node,view);
-	div.style.position="fixed";
-	div.style.bottom="0";
+};
+Module.footer = function(node, view) {
+	var div = Module.header(node, view);
+	div.className +=" "+Style.className.footer;
+	div.style.position = "fixed";
+	div.style.bottom = "0";
 	view.appendChild(div);
 	return null;
-}
+};
+Module.table=function(node, view)
+{
+	var div = document.createElement('div');
+	var border = node.getAttribute('tableborder');
+	var color = node.getAttribute('bordercolor')?node.getAttribute('bordercolor'):"#333";
+	if(border)div.style.borderTop =  border+"px  solid "+color;
+	Module.setChildren(node, div);
+	Module.setup(node, div);
+	return div;
+
+};
+Module.row= function(node, div,parentNode)
+{
+	var row = document.createElement('ul');
+	var border = parentNode.getAttribute('tableborder');
+	var color = parentNode.getAttribute('bordercolor')?parentNode.getAttribute('bordercolor'):"#333";
+	if(border)
+	{
+		row.style.borderBottom = border+"px  solid "+color;
+		row.style.borderLeft =  border+"px  solid "+color;
+		row.style.borderRight =  border+"px  solid "+color;
+	}
+	var cols = parentNode.getAttribute('cols');
+	var defaultWidth = (100/cols)+"%";
+	var currentCol=1;
+	var maxHeight = 0;
+	for (var i = 0; i < node.childNodes.length; i++) {
+			if (node.childNodes[i].nodeName != "#text") {
+				var li = document.createElement('li');
+				var w = parentNode.getAttribute('colwidth'+(currentCol))?parentNode.getAttribute('colwidth'+(currentCol)):defaultWidth;
+				li.className = Style.className.tablecell;
+				li.style.width = w;
+				if(border && currentCol<cols)li.style.borderRight = border+"px  solid "+color;
+				var name = node.childNodes[i].nodeName;
+				if (Module[name]) {
+					var mod = Module[name](node.childNodes[i], row,node);
+					if (mod)
+					{
+						if(name==Module.type.image)
+						{
+							
+							var handler = function(){
+								console.log(this,maxHeight);
+								if(this.clientHeight>maxHeight)
+								Module.setRowHeight(row,this.clientHeight);
+								Utensil.removeListener(this,"load",handler);
+								}
+							Utensil.addListener(mod,"load",handler);
+						}
+						document.body.appendChild(mod);
+						var h = mod.clientHeight;
+						document.body.removeChild(mod);
+						li.appendChild(mod);
+						row.appendChild(li);	
+						if(h>maxHeight)maxHeight=h;			
+					}
+					delete mod;
+					currentCol++
+				}
+				
+			}
+			if(currentCol>cols || i == node.childNodes.length-1)
+			{
+				i=node.childNodes.length;
+				var li = document.createElement('li');
+				li.className = Style.className.clearBoth;
+				row.appendChild(li);
+			}
+		}
+	Module.setRowHeight(row,maxHeight);	
+	Module.setup(node, row);
+	return row;
+};
+Module.setRowHeight=function(row,maxHeight)
+{
+	for (var i = 0; i < row.childNodes.length; i++) {
+		if (row.childNodes[i].nodeName != "#text" && row.childNodes[i].className && row.childNodes[i].className!=Style.className.clearBoth) {
+			row.childNodes[i].style.height = maxHeight+"px";
+		}
+	}
+};
+Module.pageNav=function(node,view)
+{
+	var ul = document.createElement('ul');
+	ul.style.position="absolute";
+	ul.style.right="0";
+	ul.style.top="0";
+	ul.className=Style.className.pageNav;
+	
+	if(node.getAttribute('home'))
+	{
+		var li = document.createElement('li');
+		li.appendChild(Module.home(node,view));
+		ul.appendChild(li);
+	}
+	var li = document.createElement('li');
+	li.className =Style.className.clearBoth;
+	ul.appendChild(li);
+	return ul;
+};
+Module.home = function(node,view)
+{
+	var div = document.createElement('div');
+	div.className=Style.className.homeIcon;
+	
+	
+	div.id = Model.id.button + Model.clickIndex;
+	Model.clickIndex++;
+	
+	Canvas.beginFill(div);
+	Canvas.strokeThickness=2;
+	Canvas.strokeColor="#e4e4e4";
+	Canvas.drawLine(10,0,20,10);
+	Canvas.drawLine(10,0,0,10);
+	
+	Canvas.drawLine(10,3,16,10);
+	Canvas.drawLine(10,3,4,10);
+	
+	Canvas.drawLine(4,10,4,17);
+	Canvas.drawLine(4,17,16,17);
+	Canvas.drawLine(16,17,16,10);
+	
+	
+	Spider.event.addListener(div.id, 'click', function() {
+		Module.onChangePage(div.id,0);
+	});
+		
+	return div;
+};

@@ -29,4 +29,4 @@ var Deeplink=
 		
 		Deeplink.init();
 	}
-}
+};

@@ -142,4 +142,4 @@ var Controller = {
 		script.src= src;
 		document.getElementsByTagName('head')[0].appendChild(script);
 	}
-}
+};

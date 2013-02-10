@@ -27,4 +27,4 @@ var Model = {
 			return;
 		delete root.handler[name];
 	}
-}
+};

@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>test</title>
+		<meta name="author" content="Fahim" />
+		<script type="text/javascript" src="lib/greensock/TweenLite.js"></script>
+		<script type="text/javascript" src="lib/greensock/easing/EasePack.js"></script>
+		<script type="text/javascript" src="lib/greensock/plugins/CSSPlugin.js"></script>
+		<script type="text/javascript" src="lib/utensil/toolkitMax-v1001.js"></script>
+		<script type="text/javascript" src="lib/spider/gesture.js"></script>
+		<script type="text/javascript" src="lib/spider/Spider.js"></script>
+		<script type="text/javascript" src="src/Main.js"></script>
+		<script type="text/javascript" src="src/com/builder/util/util.js"></script>
+		<script type="text/javascript" src="src/com/builder/social/social.js"></script>
+		<script type="text/javascript" src="src/com/builder/view/view.js"></script>
+		<script type="text/javascript" src="src/com/builder/style/style.js"></script>
+		<script type="text/javascript" src="src/com/builder/view/Module.js"></script>
+		<script type="text/javascript" src="src/com/builder/event/tracking.js"></script>
+		<script type="text/javascript" src="src/com/builder/event/deeplink.js"></script>
+		<script type="text/javascript" src="src/com/builder/controller/controller.js"></script>
+		<script type="text/javascript" src="src/com/builder/data/model.js"></script>
+		<script type="text/javascript" src="src/com/builder/util/canvas.js"></script>
+		<style type="text/css">
+			textarea {
+				width: 800px;
+				height: 500px;
+			}
+		</style>
+		<script type="text/javascript">
+			var text = "";
+			var index = 0;
+			var scripts;
+			function onLoad() {
+				scripts = document.getElementsByTagName('script');
+				next();
+			}
+
+			function next() {
+				if(scripts[index]) {
+					if(scripts[index].src.indexOf("http") >= 0) {
+						Utensil.URLLoader.load(scripts[index].src, onComplete);
+					} else {
+						onComplete("");
+					}
+				}
+			}
+
+			function onComplete(t, x) {
+				text += t;
+				index++;
+				if(index < scripts.length) {
+					next();
+				} else {
+					console.log(index);
+					document.getElementById("output").value = text;
+				}
+			}
+
+			function removeComments(str) {
+				str = ('__' + str + '__').split('');
+				var mode = {
+					singleQuote : false,
+					doubleQuote : false,
+					regex : false,
+					blockComment : false,
+					lineComment : false,
+					condComp : false
+				};
+				for(var i = 0, l = str.length; i < l; i++) {
+
+					if(mode.regex) {
+						if(str[i] === '/' && str[i - 1] !== '\\') {
+							mode.regex = false;
+						}
+						continue;
+					}
+
+					if(mode.singleQuote) {
+						if(str[i] === "'" && str[i - 1] !== '\\') {
+							mode.singleQuote = false;
+						}
+						continue;
+					}
+
+					if(mode.doubleQuote) {
+						if(str[i] === '"' && str[i - 1] !== '\\') {
+							mode.doubleQuote = false;
+						}
+						continue;
+					}
+
+					if(mode.blockComment) {
+						if(str[i] === '*' && str[i + 1] === '/') {
+							str[i + 1] = '';
+							mode.blockComment = false;
+						}
+						str[i] = '';
+						continue;
+					}
+
+					if(mode.lineComment) {
+						if(str[i + 1] === '\n' || str[i + 1] === '\r') {
+							mode.lineComment = false;
+						}
+						str[i] = '';
+						continue;
+					}
+
+					if(mode.condComp) {
+						if(str[i - 2] === '@' && str[i - 1] === '*' && str[i] === '/') {
+							mode.condComp = false;
+						}
+						continue;
+					}
+
+					mode.doubleQuote = str[i] === '"';
+					mode.singleQuote = str[i] === "'";
+
+					if(str[i] === '/') {
+
+						if(str[i + 1] === '*' && str[i + 2] === '@') {
+							mode.condComp = true;
+							continue;
+						}
+						if(str[i + 1] === '*') {
+							str[i] = '';
+							mode.blockComment = true;
+							continue;
+						}
+						if(str[i + 1] === '/') {
+							str[i] = '';
+							mode.lineComment = true;
+							continue;
+						}
+						mode.regex = true;
+
+					}
+
+				}
+				return str.join('').slice(2, -2);
+			}
+		</script>
+	</head>
+	<body onload="onLoad()">
+		<textarea id="output">
+
+</textarea>
+</body></html>
