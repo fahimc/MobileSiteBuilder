@@ -96,8 +96,8 @@
 			<![CDATA[Form Example]]>
 		</text>
 		<form type="email" src="#">
-			<input type="to" text="email address" />
-			<hidden type="from" value="chowdhury@gmx.co.uk"/>
+			<input type="from" text="email address" />
+			<hidden type="to" value="chowdhury@gmx.co.uk"/>
 			<input type="subject" text="subject" />
 			<input type="body" text="body" />
 			<submit text="Submit" />
