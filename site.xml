@@ -4,7 +4,7 @@
 		<content swipe="true" />
 		<tracking type="google" account="UA-38334114-1"   />
 	</settings>
-	<view >
+	<view scrollable="true">
 		<header src="resource/image/logo.png" />
 		<navbar>
 			<navbutton text="Home" navigateTo="0" src="" target="" />
@@ -21,7 +21,7 @@
 		<button text="Next" navigateTo="1" marginBottom="100px"/>
 		<footer text="fahimchowdhury.com" />
 	</view>
-	<view >
+	<view scrollable="true">
 		<header src="resource/image/logo.png" home="true"/>
 		<text classname="pageHeader">
 			<![CDATA[Swipe Carousel Example]]>
@@ -34,7 +34,7 @@
 			<image src="resource/image/image5.jpg"  classname="image" />
 		</carousel>
 	</view>
-	<view >
+	<view scrollable="true">
 		<header text="TeaBreak" home="true"/>
 		<text classname="pageHeader">
 			<![CDATA[Scroller Example]]>
@@ -67,7 +67,7 @@
 		</html>
 
 	</view>
-	<view >
+	<view scrollable="true">
 		<header src="resource/image/logo.png"  classname="logo"  home="true"/>
 		<text classname="pageHeader">
 			<![CDATA[Map Example]]>
@@ -81,7 +81,7 @@
 		</text>
 		<youtube width="100%" height="70%" videoid="JW5meKfy3fY"></youtube>
 	</view>
-	<view >
+	<view scrollable="true">
 		<header text="TeaBreak" home="true"/>
 		<text classname="pageHeader" >
 			<![CDATA[Link Example]]>
@@ -103,7 +103,7 @@
 			<submit text="Submit" />
 		</form>
 	</view>
-	<view>
+	<view scrollable="true">
 		<header text="TeaBreak" home="true"/>
 		<text classname="pageHeader" >
 			<![CDATA[Table Example]]>

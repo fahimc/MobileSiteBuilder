@@ -5122,8 +5122,14 @@ var View=
 		holder.style.height="100%";
 		Style.pageHolder(holder);
 		var page= document.createElement('div');
-		page.setAttribute('scrollable','true');
+		if(node.getAttribute('scrollable'))
+		{
+			page.setAttribute('scrollable','true');			
+		}else{
+			page.style.height = "inherit";
+		}
 		page.style.width = "inherit";
+		
 		view.className = node.getAttribute('classname')? node.getAttribute('classname'):Style.className.view;
 		for (var i = 0; i < node.childNodes.length; i++) {   
 			if(node.childNodes[i].nodeName!="#text")
@@ -5868,6 +5874,7 @@ var Controller = {
 		Event.addListener(Spider, Spider.event.COMPLETE, Controller.ready);
 		Spider.event.addListener(Spider.event.type.onPageChange, Spider.event.type.onPageChange, Controller.onPageChange);
 		Deeplink.init();
+		Event.dispatch(TeaBreak, TeaBreak.event.COMPLETE);
 	},
 	ready : function() {
 
@@ -5988,6 +5995,11 @@ var Controller = {
 		}
 		script.src= src;
 		document.getElementsByTagName('head')[0].appendChild(script);
+	}
+};
+var TeaBreak={
+	event:{
+		COMPLETE:'COMPLETE'
 	}
 };
 var Model = {

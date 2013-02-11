@@ -21,6 +21,7 @@ var Controller = {
 		Event.addListener(Spider, Spider.event.COMPLETE, Controller.ready);
 		Spider.event.addListener(Spider.event.type.onPageChange, Spider.event.type.onPageChange, Controller.onPageChange);
 		Deeplink.init();
+		Event.dispatch(TeaBreak, TeaBreak.event.COMPLETE);
 	},
 	ready : function() {
 
@@ -141,5 +142,10 @@ var Controller = {
 		}
 		script.src= src;
 		document.getElementsByTagName('head')[0].appendChild(script);
+	}
+};
+var TeaBreak={
+	event:{
+		COMPLETE:'COMPLETE'
 	}
 };
