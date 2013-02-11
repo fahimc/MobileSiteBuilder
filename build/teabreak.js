@@ -5900,6 +5900,7 @@ var Controller = {
 		var view = Model.data.getElementsByTagName("view")[parseInt(index)];
 		var id = view.getAttribute('pagename') ? view.getAttribute('pagename') : index;
 		Tracking.pageChange(id);
+		Event.dispatch(TeaBreak, TeaBreak.event.PAGE_CHANGE);
 	},
 	onGalleryClick : function(obj, event) {
 		var element = event.srcElement || event.target;
@@ -5999,7 +6000,8 @@ var Controller = {
 };
 var TeaBreak={
 	event:{
-		COMPLETE:'COMPLETE'
+		COMPLETE:'COMPLETE',
+		PAGE_CHANGE:'PAGE_CHANGE'
 	}
 };
 var Model = {
