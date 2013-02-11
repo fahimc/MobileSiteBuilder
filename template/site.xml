@@ -1,0 +1,9 @@
+<site>
+	<settings>
+		<title text="TeaBreak"/>
+		<content swipe="true" />
+	</settings>
+	<view >
+	
+	</view>
+</site>

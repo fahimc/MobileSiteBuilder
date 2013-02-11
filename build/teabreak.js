@@ -4967,7 +4967,7 @@ Spider.controller = {
 					//}
 					if (y > 0)
 						y = 0;
-					if (y < -(page.clientHeight - page.parentNode.clientHeight))
+					if (y <= -(page.clientHeight - page.parentNode.clientHeight))
 						y = -(page.clientHeight - page.parentNode.clientHeight);
 					scroller.style.top = (-((page.parentNode.clientHeight / page.clientHeight) * Number(y))) + "px";
 					TweenLite.to(page, 0.1, {
@@ -5080,38 +5080,6 @@ var Util = {
 		document.getElementsByTagName('head')[0].appendChild(viewPortTag);
 	}
 };
-var SocialNetwork = {
-	type : null,
-	init : function(node) {
-		var div = document.createElement('div');
-		div.id="fb-root";
-		document.body.appendChild(div);
-		var js, id = 'facebook-jssdk', ref = document.getElementsByTagName('script')[0];
-           if (document.getElementById(id)) {return;}
-           js = document.createElement('script'); js.id = id; js.async = true;
-           js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-           ref.parentNode.insertBefore(js, ref);
-		
-		if (SocialNetwork[SocialNetwork.type])
-			SocialNetwork[SocialNetwork.type].init(node);
-	},
-	onClick : function(node) {
-		if (SocialNetwork[SocialNetwork.type])
-			SocialNetwork[SocialNetwork.type].onClick(node);
-	}
-};
-SocialNetwork.facebook = {
-	url : "http://www.facebook.com/sharer.php?u=[x]&t=[y]",
-	init : function(node) {
-
-	},
-	onClick:function(node)
-	{
-		var t= node.getAttribute('text');
-		var url = SocialNetwork.facebook.url.replace('[y]',t);
-		window.open (url,"_blank");
-	}
-};
 var View=
 {
 	defaultHtml:'<div id="wrapper"><div id="spider-content"></div></div>',
@@ -5156,7 +5124,6 @@ var View=
 		var page= document.createElement('div');
 		page.setAttribute('scrollable','true');
 		page.style.width = "inherit";
-		console.log(node.getAttribute('classname'),node);
 		view.className = node.getAttribute('classname')? node.getAttribute('classname'):Style.className.view;
 		for (var i = 0; i < node.childNodes.length; i++) {   
 			if(node.childNodes[i].nodeName!="#text")
@@ -5911,7 +5878,7 @@ var Controller = {
 	},
 	checkTracking : function() {
 		var tracking = Model.data.getElementsByTagName("tracking");
-		if (tracking) {
+		if (tracking && tracking[0]) {
 			tracking = tracking[0];
 			Tracking.type = tracking.getAttribute('type');
 			Tracking.init(tracking);

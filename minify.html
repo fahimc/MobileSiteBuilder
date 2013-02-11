@@ -13,7 +13,6 @@
 		<script type="text/javascript" src="lib/spider/Spider.js"></script>
 		<script type="text/javascript" src="src/Main.js"></script>
 		<script type="text/javascript" src="src/com/builder/util/util.js"></script>
-		<script type="text/javascript" src="src/com/builder/social/social.js"></script>
 		<script type="text/javascript" src="src/com/builder/view/view.js"></script>
 		<script type="text/javascript" src="src/com/builder/style/style.js"></script>
 		<script type="text/javascript" src="src/com/builder/view/Module.js"></script>
@@ -54,6 +53,10 @@
 					next();
 				} else {
 					console.log(index);
+					// text =removeComments(text);
+					// text=text.replace(/\s+/g, ' ');
+					// text=text.replace(/(\r\n|\n|\r)/gm,"");
+					// text=text.replace(/\/\*.+?\*\/|\/\/.*(?=[\n\r])/g, '');
 					document.getElementById("output").value = text;
 				}
 			}

@@ -42,7 +42,6 @@ var View=
 		var page= document.createElement('div');
 		page.setAttribute('scrollable','true');
 		page.style.width = "inherit";
-		console.log(node.getAttribute('classname'),node);
 		view.className = node.getAttribute('classname')? node.getAttribute('classname'):Style.className.view;
 		for (var i = 0; i < node.childNodes.length; i++) {   
 			if(node.childNodes[i].nodeName!="#text")

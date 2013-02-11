@@ -30,7 +30,7 @@ var Controller = {
 	},
 	checkTracking : function() {
 		var tracking = Model.data.getElementsByTagName("tracking");
-		if (tracking) {
+		if (tracking && tracking[0]) {
 			tracking = tracking[0];
 			Tracking.type = tracking.getAttribute('type');
 			Tracking.init(tracking);
