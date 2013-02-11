@@ -5508,7 +5508,7 @@ Module.button = function(node, view) {
 	obj.innerHTML = node.getAttribute('text');
 	div.appendChild(obj);
 	Module.setup(node, div);
-	div.className = Style.className.blacktheme + " " + Style.className.button;
+	if(!node.getAttribute('classname'))div.className = Style.className.blacktheme + " " + Style.className.button;
 	return div;
 };
 /*
@@ -5566,7 +5566,7 @@ Module.submit = function(node, view) {
 
 		if (t && f && s && b) {
 			var url;
-			console.log(parent);
+			
 			url = (parent.getAttribute("formsrc") != null ? parent.getAttribute("formsrc") : Model.url.email);
 			var url = url.replace('[t]', t);
 			url = url.replace('[f]', f);
@@ -5693,7 +5693,6 @@ Module.row= function(node, div,parentNode)
 						{
 							
 							var handler = function(){
-								console.log(this,maxHeight);
 								if(this.clientHeight>maxHeight)
 								Module.setRowHeight(row,this.clientHeight);
 								Utensil.removeListener(this,"load",handler);

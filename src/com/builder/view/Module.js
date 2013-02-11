@@ -310,7 +310,7 @@ Module.button = function(node, view) {
 	obj.innerHTML = node.getAttribute('text');
 	div.appendChild(obj);
 	Module.setup(node, div);
-	div.className = Style.className.blacktheme + " " + Style.className.button;
+	if(!node.getAttribute('classname'))div.className = Style.className.blacktheme + " " + Style.className.button;
 	return div;
 };
 /*
