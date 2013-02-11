@@ -10,3 +10,4 @@ You can build your own modules by adding your own functions to the Module object
 
 ##[Module List](https://github.com/fahimc/MobileSiteBuilder/wiki/Modules)
 ##[Settings List](https://github.com/fahimc/MobileSiteBuilder/wiki/Settings)  
+##[Creating a Custom Module](https://github.com/fahimc/MobileSiteBuilder/wiki/Creating-a-Custom-Module)  
