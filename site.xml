@@ -131,6 +131,8 @@
 	</view>
 	<view>
 		<header text="TeaBreak" home="true"/>
-		
+		<feed src="http://feeds.bbci.co.uk/news/rss.xml" main="item" >
+		<carousel marginTop="10px" width="320px" height="300px"  auto="true" dataFillParent="image" dataFill="src" dataValue="media:thumbnail/url" />
+		</feed>
 		</view>
 </site>

@@ -1,13 +1,12 @@
 var Module = {
-	type:
-	{
-		image:"image"
+	type : {
+		image : "image"
 	},
 	appid : "tb0802132202",
 	setup : function(node, obj) {
 		if (node) {
 
-				obj.className = node.getAttribute('classname')?node.getAttribute('classname'):Style.className.module+node.nodeName;
+			obj.className = node.getAttribute('classname') ? node.getAttribute('classname') : Style.className.module + node.nodeName;
 			if (node.getAttribute('id'))
 				obj.id = node.getAttribute('id');
 			for (var i = 0; i < node.attributes.length; i++) {
@@ -25,7 +24,7 @@ var Module = {
 		if (navTo) {
 			this.setButton(obj);
 			Spider.event.addListener(obj.id, 'click', function() {
-				Module.onChangePage(obj.id,navTo);
+				Module.onChangePage(obj.id, navTo);
 			});
 		};
 		var link = node.getAttribute('link');
@@ -41,11 +40,10 @@ var Module = {
 		delete link;
 		return obj;
 	},
-	onChangePage:function(id,navTo)
-	{
+	onChangePage : function(id, navTo) {
 		Tracking.pageChange(id);
-				Deeplink.update(navTo);
-				Spider.navigateTo(navTo);
+		Deeplink.update(navTo);
+		Spider.navigateTo(navTo);
 	},
 	setButton : function(obj) {
 		if (!obj.id) {
@@ -59,7 +57,7 @@ var Module = {
 			if (node.childNodes[i].nodeName != "#text") {
 				var name = node.childNodes[i].nodeName;
 				if (Module[name]) {
-					var mod = Module[name](node.childNodes[i], obj,node);
+					var mod = Module[name](node.childNodes[i], obj, node);
 					if (mod)
 						obj.appendChild(mod);
 					delete mod;
@@ -97,14 +95,13 @@ Module.text = function(node, view) {
 	var div = document.createElement('div');
 	var t = document.createElement('div');
 	var p = document.createElement('p');
-	
-	if(node.getAttribute('height'))
-	{
+
+	if (node.getAttribute('height')) {
 		div.setAttribute('scrollable', 'true');
-	div.appendChild(p);
-	holder.appendChild(div);
-	div.appendChild(t);
-	}else{
+		div.appendChild(p);
+		holder.appendChild(div);
+		div.appendChild(t);
+	} else {
 		holder.appendChild(p);
 	}
 	p.innerHTML = child.nodeValue;
@@ -216,8 +213,9 @@ Module.header = function(node, view) {
 		obj = document.createElement('p');
 		obj.innerHTML = node.getAttribute('text');
 	}
-	var nav =Module.pageNav(node,view);
-	if(nav)div.appendChild(nav);
+	var nav = Module.pageNav(node, view);
+	if (nav)
+		div.appendChild(nav);
 	div.appendChild(obj);
 	return div;
 };
@@ -310,7 +308,8 @@ Module.button = function(node, view) {
 	obj.innerHTML = node.getAttribute('text');
 	div.appendChild(obj);
 	Module.setup(node, div);
-	if(!node.getAttribute('classname'))div.className = Style.className.blacktheme + " " + Style.className.button;
+	if (!node.getAttribute('classname'))
+		div.className = Style.className.blacktheme + " " + Style.className.button;
 	return div;
 };
 /*
@@ -368,7 +367,7 @@ Module.submit = function(node, view) {
 
 		if (t && f && s && b) {
 			var url;
-			
+
 			url = (parent.getAttribute("formsrc") != null ? parent.getAttribute("formsrc") : Model.url.email);
 			var url = url.replace('[t]', t);
 			url = url.replace('[f]', f);
@@ -447,137 +446,137 @@ Module.hidden = function(node, view) {
 };
 Module.footer = function(node, view) {
 	var div = Module.header(node, view);
-	div.className +=" "+Style.className.footer;
+	div.className += " " + Style.className.footer;
 	div.style.position = "fixed";
 	div.style.bottom = "0";
 	view.appendChild(div);
 	return null;
 };
-Module.table=function(node, view)
-{
+Module.table = function(node, view) {
 	var div = document.createElement('div');
 	var border = node.getAttribute('tableborder');
-	var color = node.getAttribute('bordercolor')?node.getAttribute('bordercolor'):"#333";
-	if(border)div.style.borderTop =  border+"px  solid "+color;
+	var color = node.getAttribute('bordercolor') ? node.getAttribute('bordercolor') : "#333";
+	if (border)
+		div.style.borderTop = border + "px  solid " + color;
 	Module.setChildren(node, div);
 	Module.setup(node, div);
 	return div;
 
 };
-Module.row= function(node, div,parentNode)
-{
+Module.row = function(node, div, parentNode) {
 	var row = document.createElement('ul');
 	var border = parentNode.getAttribute('tableborder');
-	var color = parentNode.getAttribute('bordercolor')?parentNode.getAttribute('bordercolor'):"#333";
-	if(border)
-	{
-		row.style.borderBottom = border+"px  solid "+color;
-		row.style.borderLeft =  border+"px  solid "+color;
-		row.style.borderRight =  border+"px  solid "+color;
+	var color = parentNode.getAttribute('bordercolor') ? parentNode.getAttribute('bordercolor') : "#333";
+	if (border) {
+		row.style.borderBottom = border + "px  solid " + color;
+		row.style.borderLeft = border + "px  solid " + color;
+		row.style.borderRight = border + "px  solid " + color;
 	}
 	var cols = parentNode.getAttribute('cols');
-	var defaultWidth = (100/cols)+"%";
-	var currentCol=1;
+	var defaultWidth = (100 / cols) + "%";
+	var currentCol = 1;
 	var maxHeight = 0;
 	for (var i = 0; i < node.childNodes.length; i++) {
-			if (node.childNodes[i].nodeName != "#text") {
-				var li = document.createElement('li');
-				var w = parentNode.getAttribute('colwidth'+(currentCol))?parentNode.getAttribute('colwidth'+(currentCol)):defaultWidth;
-				li.className = Style.className.tablecell;
-				li.style.width = w;
-				if(border && currentCol<cols)li.style.borderRight = border+"px  solid "+color;
-				var name = node.childNodes[i].nodeName;
-				if (Module[name]) {
-					var mod = Module[name](node.childNodes[i], row,node);
-					if (mod)
-					{
-						if(name==Module.type.image)
-						{
-							
-							var handler = function(){
-								if(this.clientHeight>maxHeight)
-								Module.setRowHeight(row,this.clientHeight);
-								Utensil.removeListener(this,"load",handler);
-								}
-							Utensil.addListener(mod,"load",handler);
+		if (node.childNodes[i].nodeName != "#text") {
+			var li = document.createElement('li');
+			var w = parentNode.getAttribute('colwidth' + (currentCol)) ? parentNode.getAttribute('colwidth' + (currentCol)) : defaultWidth;
+			li.className = Style.className.tablecell;
+			li.style.width = w;
+			if (border && currentCol < cols)
+				li.style.borderRight = border + "px  solid " + color;
+			var name = node.childNodes[i].nodeName;
+			if (Module[name]) {
+				var mod = Module[name](node.childNodes[i], row, node);
+				if (mod) {
+					if (name == Module.type.image) {
+
+						var handler = function() {
+							if (this.clientHeight > maxHeight)
+								Module.setRowHeight(row, this.clientHeight);
+							Utensil.removeListener(this, "load", handler);
 						}
-						document.body.appendChild(mod);
-						var h = mod.clientHeight;
-						document.body.removeChild(mod);
-						li.appendChild(mod);
-						row.appendChild(li);	
-						if(h>maxHeight)maxHeight=h;			
+						Utensil.addListener(mod, "load", handler);
 					}
-					delete mod;
-					currentCol++
+					document.body.appendChild(mod);
+					var h = mod.clientHeight;
+					document.body.removeChild(mod);
+					li.appendChild(mod);
+					row.appendChild(li);
+					if (h > maxHeight)
+						maxHeight = h;
 				}
-				
+				delete mod;
+				currentCol++
 			}
-			if(currentCol>cols || i == node.childNodes.length-1)
-			{
-				i=node.childNodes.length;
-				var li = document.createElement('li');
-				li.className = Style.className.clearBoth;
-				row.appendChild(li);
-			}
+
 		}
-	Module.setRowHeight(row,maxHeight);	
+		if (currentCol > cols || i == node.childNodes.length - 1) {
+			i = node.childNodes.length;
+			var li = document.createElement('li');
+			li.className = Style.className.clearBoth;
+			row.appendChild(li);
+		}
+	}
+	Module.setRowHeight(row, maxHeight);
 	Module.setup(node, row);
 	return row;
 };
-Module.setRowHeight=function(row,maxHeight)
-{
+Module.setRowHeight = function(row, maxHeight) {
 	for (var i = 0; i < row.childNodes.length; i++) {
-		if (row.childNodes[i].nodeName != "#text" && row.childNodes[i].className && row.childNodes[i].className!=Style.className.clearBoth) {
-			row.childNodes[i].style.height = maxHeight+"px";
+		if (row.childNodes[i].nodeName != "#text" && row.childNodes[i].className && row.childNodes[i].className != Style.className.clearBoth) {
+			row.childNodes[i].style.height = maxHeight + "px";
 		}
 	}
 };
-Module.pageNav=function(node,view)
-{
+Module.pageNav = function(node, view) {
 	var ul = document.createElement('ul');
-	ul.style.position="absolute";
-	ul.style.right="0";
-	ul.style.top="0";
-	ul.className=Style.className.pageNav;
-	
-	if(node.getAttribute('home'))
-	{
+	ul.style.position = "absolute";
+	ul.style.right = "0";
+	ul.style.top = "0";
+	ul.className = Style.className.pageNav;
+
+	if (node.getAttribute('home')) {
 		var li = document.createElement('li');
-		li.appendChild(Module.home(node,view));
+		li.appendChild(Module.home(node, view));
 		ul.appendChild(li);
 	}
 	var li = document.createElement('li');
-	li.className =Style.className.clearBoth;
+	li.className = Style.className.clearBoth;
 	ul.appendChild(li);
 	return ul;
 };
-Module.home = function(node,view)
-{
+Module.home = function(node, view) {
 	var div = document.createElement('div');
-	div.className=Style.className.homeIcon;
-	
-	
+	div.className = Style.className.homeIcon;
+
 	div.id = Model.id.button + Model.clickIndex;
 	Model.clickIndex++;
-	
+
 	Canvas.beginFill(div);
-	Canvas.strokeThickness=2;
-	Canvas.strokeColor="#e4e4e4";
-	Canvas.drawLine(10,0,20,10);
-	Canvas.drawLine(10,0,0,10);
-	
-	Canvas.drawLine(10,3,16,10);
-	Canvas.drawLine(10,3,4,10);
-	
-	Canvas.drawLine(4,10,4,17);
-	Canvas.drawLine(4,17,16,17);
-	Canvas.drawLine(16,17,16,10);
-	
-	
+	Canvas.strokeThickness = 2;
+	Canvas.strokeColor = "#e4e4e4";
+	Canvas.drawLine(10, 0, 20, 10);
+	Canvas.drawLine(10, 0, 0, 10);
+
+	Canvas.drawLine(10, 3, 16, 10);
+	Canvas.drawLine(10, 3, 4, 10);
+
+	Canvas.drawLine(4, 10, 4, 17);
+	Canvas.drawLine(4, 17, 16, 17);
+	Canvas.drawLine(16, 17, 16, 10);
+
 	Spider.event.addListener(div.id, 'click', function() {
-		Module.onChangePage(div.id,0);
+		Module.onChangePage(div.id, 0);
 	});
-		
+
 	return div;
+};
+Module.feed = function(node, view) {
+	var s = "http://fahimchowdhury.com/services/rss/rsstojson.php?r=";
+	var src = node.getAttribute('src');
+	Feed.currentNode = node;
+	Feed.currentView = view;
+	Controller.onScriptLoad(s+src+"&c=Feed.onFeedReady");
+
+	return null;
 };
