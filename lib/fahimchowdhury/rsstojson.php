@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/javascript');
 //header('Content-Type: application/json');
 $feed = new DOMDocument();
 $feed->load(urldecode($_GET['r']));
