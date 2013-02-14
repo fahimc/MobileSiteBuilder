@@ -2,6 +2,7 @@ var Feed = {
 	att : {
 		dataFill : "dataFill",
 		dataFillParent : "dataFillParent",
+		dataIndex : "dataIndex",
 		dataValue : "dataValue"
 	},
 	currentNode : null,
@@ -9,10 +10,10 @@ var Feed = {
 	childIndex : 0,
 	items : null,
 	collection : {},
-	xml:null,
+	xml : null,
 	onFeedReady : function(data) {
 		// if(!node)return;
-		data = data.replace(/\:/g,'');
+		data = data.replace(/\:/g, '');
 		Feed.xml = Util.StringtoXML(data);
 		var tag = Feed.currentNode.getAttribute('main');
 		Feed.items = Feed.xml.getElementsByTagName(tag);
@@ -21,48 +22,84 @@ var Feed = {
 
 	},
 	mapData : function() {
+			
 		for ( a = 0; a < Feed.currentNode.childNodes.length; a++) {
-			if (Feed.currentNode.childNodes[a].nodeName != "#text") {
 				var el = Feed.currentNode.childNodes[a];
-				console.log(el);
+			console.log(Feed.currentNode);
+			if (el.getAttribute && el.getAttribute(Feed.att.dataFill)) {
+				
 				var dv = el.getAttribute(Feed.att.dataValue);
+				
 				var name = dv.split("/")[0];
+				var att = dv.split("/")[1]? dv.split("/")[1]:"nodeValue";
+				
+				var dp = el.getAttribute(Feed.att.dataFillParent);
+				var df = el.getAttribute(Feed.att.dataFill);
+				
 				var tag;
-				name=name.replace(":","");
-				console.log(Feed.items);
-				tag =  Feed.xml.getElementsByTagName(name);
+				name = name.replace(":", "");
+				tag = Feed.getArrayNodeByName(Feed.items, name,att);
+				//console.log(tag);
 				if (tag)
-					Feed.collection[el.nodeName] = tag;
+					Feed.collection[el.nodeName] = {item:tag,dp:dp,df:df,node:el};
 			}
-
+			console.log(a);
+			
 		}
+		Feed.setNode();
 		console.log(Feed.collection);
+		
 	},
 	setNode : function() {
-		console.log("setNode");
-		if (Feed.currentNode.childNodes[Feed.childIndex] && Feed.currentNode.childNodes[Feed.childIndex].nodeName != "#text") {
-			var child = Feed.currentNode.childNodes[Feed.childIndex];
-
-			//console.log(data);
-			if (child.getAttribute(Feed.att.dataFill)) {
-				for ( a = 0; a < Feed.items.length; a++) {
-					//var data =Feed.getItemData(child, Feed.items[a]);
-					//var cn = Feed.createData(child,data);
-				}
-
-				console.log(Feed.items)
-				//Feed.setNode();
-
-			}
-			console.log(child);
-			mod = Module[child.nodeName](child, Feed.currentView);
-			Feed.currentView.appendChild(mod);
+		for(var name in Feed.collection)
+		{
+			Feed.createNode(name,Feed.collection[name]);
 		}
-		Feed.childIndex++;
 
-		setTimeout(Feed.nextNode, 100);
-		return null;
-
+	},
+	createNode:function(name,obj)
+	{
+		var node = obj.node;
+		if(!obj.dp)
+		{
+			if(obj.df=="nodeValue")
+			{
+				var ind = node.getAttribute(Feed.att.dataIndex);
+				if(ind==undefined)ind=0;
+				console.log(obj.item[ind].value);
+				if(node.nodeValue)
+				{
+					node.nodeValue = obj.item[ind].value;
+				}else{
+					node.textContent =  obj.item[ind].value;
+				}
+				console.log(node );
+			}else{
+				node.setAttribute(obj.df,obj.item[ind].value);
+			}
+		}else{
+			Feed.createChildNodes(node,name,obj);
+		}
+		//console.log(node,Feed.currentView);
+		var mod=Module[name](node,Feed.currentView);
+		if(mod)Feed.currentView.appendChild(mod);
+		
+	},
+	createChildNodes:function(node,name,obj)
+	{
+		var modName = obj.dp;
+		for(var b=0;b<obj.item.length;b++)
+		{
+			var childNode = Feed.xml.createElement(modName);
+			obj.item[b].value=obj.item[b].value.replace("http/","http:/");
+			if(obj.df=="nodeValue")
+			{
+				childNode.nodeValue = obj.item[b].value;
+			}else{
+				childNode.setAttribute(obj.df,obj.item[b].value);
+			}
+			node.appendChild(childNode);
+		}
 	},
 	nextNode : function() {
 		console.log("nextNode", Feed.childIndex);
@@ -113,12 +150,17 @@ var Feed = {
 		}
 		return null;
 	},
-	getArrayNodeByName : function(item, name) {
-		var ar=[];
-		for ( a = 0; a < item.childNodes.length; a++) {
-			var el = item.childNodes[a];
-			if (el.nodeName == name) {
-				ar.push(el);
+	getArrayNodeByName : function(item, name,att) {
+		var ar = [];
+		var lis = item.childNodes ? item.childNodes : item;
+		for ( c = 0; c < lis.length; c++) {
+			var el = lis[c];
+			if (el.getElementsByTagName(name)) {
+				
+				var val = (att=="nodeValue"?el.getElementsByTagName(name)[0].nodeValue:el.getElementsByTagName(name)[0].getAttribute(att));
+			if(!val)val=el.getElementsByTagName(name)[0].textContent;
+			
+				ar.push({node:el.getElementsByTagName(name)[0],value:val});
 			}
 
 		}

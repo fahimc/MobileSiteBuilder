@@ -132,7 +132,10 @@
 	<view>
 		<header text="TeaBreak" home="true"/>
 		<feed src="http://feeds.bbci.co.uk/news/rss.xml" main="item" >
-		<carousel marginTop="10px" width="320px" height="300px"  auto="true" dataFillParent="image" dataFill="src" dataValue="media:thumbnail/url" />
+		<carousel marginTop="10px" width="620px" height="600px"  auto="true" dataFillParent="image" dataFill="src" dataValue="media:thumbnail/url" />
+		<text dataFill="nodeValue" dataValue="description" dataIndex="0" />
+		<text dataFill="nodeValue" dataValue="description" dataIndex="1" />
+		<text dataFill="nodeValue" dataValue="description" dataIndex="2" />
 		</feed>
 		</view>
 </site>

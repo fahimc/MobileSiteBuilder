@@ -90,7 +90,9 @@ Module.html = function(node, view) {
  * text module
  */
 Module.text = function(node, view) {
+	
 	var child = (node.firstChild.nodeName != "#text") ? node.firstChild : node.childNodes[1];
+	if(!child)child=node;
 	var holder = document.createElement('div');
 	var div = document.createElement('div');
 	var t = document.createElement('div');
@@ -104,7 +106,7 @@ Module.text = function(node, view) {
 	} else {
 		holder.appendChild(p);
 	}
-	p.innerHTML = child.nodeValue;
+	p.innerHTML = child.nodeValue?child.nodeValue:child.textContent;
 	var h = (p.clientHeight);
 	var w = (p.clientWidth);
 	holder = Module.setup(node, holder);
