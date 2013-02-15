@@ -72,14 +72,14 @@
 		<text classname="pageHeader">
 			<![CDATA[Map Example]]>
 		</text>
-		<!--<map width="100%" height="70%" lat='51.50591' lng='-0.021714'></map>-->
+		<map width="100%" height="70%" lat='51.50591' lng='-0.021714'></map><!---->
 	</view>
 	<view >
 		<header text="TeaBreak" home="true"/>
 		<text classname="pageHeader">
 			<![CDATA[Youtube Example]]>
 		</text>
-		<!--<youtube width="100%" height="70%" videoid="JW5meKfy3fY"></youtube>-->
+		<youtube width="100%" height="70%" videoid="JW5meKfy3fY"></youtube><!---->
 	</view>
 	<view scrollable="true">
 		<header text="TeaBreak" home="true"/>
@@ -129,13 +129,16 @@
 			</row>
 		</table>
 	</view>
-	<view>
+	<view scrollable="true">
 		<header text="TeaBreak" home="true"/>
 		<feed src="http://feeds.bbci.co.uk/news/rss.xml" main="item" >
-		<carousel marginTop="10px" width="620px" height="600px"  auto="true" dataFillParent="image" dataFill="src" dataValue="media:thumbnail/url" />
-		<text dataFill="nodeValue" dataValue="description" dataIndex="0" />
-		<text dataFill="nodeValue" dataValue="description" dataIndex="1" />
-		<text dataFill="nodeValue" dataValue="description" dataIndex="2" />
+		<carousel marginTop="10px" width="100%" height="81px"  auto="true" dataFillParent="image" dataFill="src" dataValue="media:thumbnail/url"  fillIndex="1" dataProp="{classname:'thumbs'}" />
+		<text dataFill="nodeValue" dataValue="title" dataIndex="0" dataProp="{classname:'desc'}"/>
+		<text dataFill="nodeValue" dataValue="title" dataIndex="1" dataProp="{classname:'desc'}" />
+		<text dataFill="nodeValue" dataValue="title" dataIndex="2" dataProp="{classname:'desc'}"/>
 		</feed>
 		</view>
+	<view>
+	<test/>
+	</view>
 </site>

@@ -3,6 +3,8 @@ var Feed = {
 		dataFill : "dataFill",
 		dataFillParent : "dataFillParent",
 		dataIndex : "dataIndex",
+		fillIndex : "fillIndex",
+		dataProp : "dataProp",
 		dataValue : "dataValue"
 	},
 	currentNode : null,
@@ -25,7 +27,7 @@ var Feed = {
 			
 		for ( a = 0; a < Feed.currentNode.childNodes.length; a++) {
 				var el = Feed.currentNode.childNodes[a];
-			console.log(Feed.currentNode);
+			
 			if (el.getAttribute && el.getAttribute(Feed.att.dataFill)) {
 				
 				var dv = el.getAttribute(Feed.att.dataValue);
@@ -38,51 +40,72 @@ var Feed = {
 				
 				var tag;
 				name = name.replace(":", "");
-				tag = Feed.getArrayNodeByName(Feed.items, name,att);
+				tag = Feed.getArrayNodeByName(Feed.items, name,att,el.getAttribute(Feed.att.fillIndex));
 				//console.log(tag);
 				if (tag)
-					Feed.collection[el.nodeName] = {item:tag,dp:dp,df:df,node:el};
+				{
+					if(!Feed.collection[el.nodeName])Feed.collection[el.nodeName]=[];
+					Feed.collection[el.nodeName].push({item:tag,dp:dp,df:df,node:el});
+				}
+					
 			}
-			console.log(a);
+			
 			
 		}
 		Feed.setNode();
-		console.log(Feed.collection);
+		//console.log(Feed.collection);
 		
 	},
 	setNode : function() {
+		
 		for(var name in Feed.collection)
 		{
-			Feed.createNode(name,Feed.collection[name]);
+			for(var d=0;d<Feed.collection[name].length;d++)
+			{
+			
+				Feed.createNode(name,Feed.collection[name][d]);				
+			}
 		}
 
 	},
 	createNode:function(name,obj)
 	{
 		var node = obj.node;
+		
 		if(!obj.dp)
 		{
 			if(obj.df=="nodeValue")
 			{
 				var ind = node.getAttribute(Feed.att.dataIndex);
 				if(ind==undefined)ind=0;
-				console.log(obj.item[ind].value);
+				//console.log(obj.item[ind].value);
 				if(node.nodeValue)
 				{
 					node.nodeValue = obj.item[ind].value;
 				}else{
 					node.textContent =  obj.item[ind].value;
 				}
-				console.log(node );
+				
 			}else{
 				node.setAttribute(obj.df,obj.item[ind].value);
+			}
+			if(node.getAttribute(Feed.att.dataProp))
+			{
+				var str =node.getAttribute(Feed.att.dataProp);
+				var props = eval('(' + str+ ')');
+				for(var pn in props)
+				{
+					node.setAttribute(pn,props[pn]);
+				}
 			}
 		}else{
 			Feed.createChildNodes(node,name,obj);
 		}
 		//console.log(node,Feed.currentView);
+		
 		var mod=Module[name](node,Feed.currentView);
 		if(mod)Feed.currentView.appendChild(mod);
+		Spider.resize();
 		
 	},
 	createChildNodes:function(node,name,obj)
@@ -91,6 +114,15 @@ var Feed = {
 		for(var b=0;b<obj.item.length;b++)
 		{
 			var childNode = Feed.xml.createElement(modName);
+			if(node.getAttribute(Feed.att.dataProp))
+			{
+				var str =node.getAttribute(Feed.att.dataProp);
+				var props = eval('(' + str+ ')');
+				for(var pn in props)
+				{
+					childNode.setAttribute(pn,props[pn]);
+				}
+			}
 			obj.item[b].value=obj.item[b].value.replace("http/","http:/");
 			if(obj.df=="nodeValue")
 			{
@@ -98,11 +130,12 @@ var Feed = {
 			}else{
 				childNode.setAttribute(obj.df,obj.item[b].value);
 			}
+			//console.log(childNode);
 			node.appendChild(childNode);
 		}
 	},
 	nextNode : function() {
-		console.log("nextNode", Feed.childIndex);
+		//console.log("nextNode", Feed.childIndex);
 		if (Feed.currentNode.childNodes[Feed.childIndex] != undefined) {
 			Feed.setNode();
 		}
@@ -150,17 +183,25 @@ var Feed = {
 		}
 		return null;
 	},
-	getArrayNodeByName : function(item, name,att) {
+	getArrayNodeByName : function(item, name,att,inx) {
 		var ar = [];
+		inx=inx==undefined?0:inx;
 		var lis = item.childNodes ? item.childNodes : item;
 		for ( c = 0; c < lis.length; c++) {
 			var el = lis[c];
 			if (el.getElementsByTagName(name)) {
-				
-				var val = (att=="nodeValue"?el.getElementsByTagName(name)[0].nodeValue:el.getElementsByTagName(name)[0].getAttribute(att));
-			if(!val)val=el.getElementsByTagName(name)[0].textContent;
-			
-				ar.push({node:el.getElementsByTagName(name)[0],value:val});
+				var child = el.getElementsByTagName(name)[inx]?el.getElementsByTagName(name)[inx]:el.getElementsByTagName(name);
+				var val;
+				if(child.getAttribute && att!="nodeValue")
+				{
+					val = child.getAttribute(att);
+					
+					
+				}else if(att=="nodeValue"){
+					val =child.nodeValue;
+					if(!val)val=child.textContent;
+				}
+				if(val)ar.push({node:child,value:val});
 			}
 
 		}

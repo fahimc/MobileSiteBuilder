@@ -582,3 +582,35 @@ Module.feed = function(node, view) {
 
 	return null;
 };
+Module.test=function(node,view)
+{
+	
+	var img = new Image();
+	img.src="resource/image/1.jpg";
+	img.id="drag";
+	img.style.position="absolute";
+	Spider.event.addListener(img.id,"click",function(event){window.mouseClick(img)});
+	
+	return img;
+}
+window.mouseClick=function(img)
+{
+	console.log(gesture.active);
+
+		Spider.event.disableGesture();
+		Utensil.addListener(document.body,"mousemove",function(event){window.mouseMoveTest(event,img)});
+		Utensil.addListener(document.body,"mousedown",function(event){window.mouseDown(event,img)});
+
+	
+}
+window.mouseDown=function(event,img)
+{
+	Spider.event.activateGesture();
+	Utensil.removeListener(document.body,"mousemove",function(event){window.mouseMoveTest(event,img)});
+		Utensil.removeListener(document.body,"mousedown",function(event){window.mouseDown(event,img)});
+}
+window.mouseMoveTest=function(event,img)
+	{
+		img.style.left = Utensil.mouseX(document.body,event)+"px";
+		img.style.top = Utensil.mouseY(document.body,event)+"px";
+	}
